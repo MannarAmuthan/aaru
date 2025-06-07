@@ -1,20 +1,30 @@
 from typing import List, Tuple
 
-from strategies.leaky_bucket import LeakyBucket, CallBackRequest
+from strategies.batch_window import BatchWindow, CallBackRequest
+from strategies.leaky_bucket import LeakyBucket
 
+
+class RateStrategy:
+    BATCH_WINDOW = 1
+    LEAKY_BUCKET = 2
 
 class Alavu:
     def __init__(self,
-                 max_requests_per_window: int,
-                 window_in_seconds: int):
-        self.max_actions_per_window = max_requests_per_window
-        self.window_in_seconds = window_in_seconds
+                 max_requests_per_window: int = None,
+                 window_in_seconds: int = None,
+                 strategy: RateStrategy = RateStrategy.BATCH_WINDOW):
         self.index = 0
 
-        self.strategy = LeakyBucket(
-            bucket_size=max_requests_per_window,
-            leak_window_in_seconds=window_in_seconds
-        )
+        if strategy == RateStrategy.BATCH_WINDOW:
+            self.strategy = BatchWindow(
+                max_requests_per_window=max_requests_per_window,
+                window_in_seconds=window_in_seconds
+            )
+
+        if strategy == RateStrategy.LEAKY_BUCKET:
+            self.strategy = LeakyBucket(
+                window_in_seconds=window_in_seconds
+            )
 
         self.callback_requests = []
 
@@ -29,4 +39,4 @@ class Alavu:
         self.strategy.stop()
 
     def get_result(self):
-        return [ r.get_result() for r in self.callback_requests]
+        return [r.get_result() for r in self.callback_requests]
