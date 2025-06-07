@@ -4,24 +4,24 @@ from strategies.batch_window import BatchWindow, CallBackRequest
 from strategies.leaky_bucket import LeakyBucket
 
 
-class RateStrategy:
+class Mode:
     BATCH_WINDOW = 1
     LEAKY_BUCKET = 2
 
-class Alavu:
+class Aaru:
     def __init__(self,
                  max_requests_per_window: int = None,
                  window_in_seconds: int = None,
-                 strategy: RateStrategy = RateStrategy.BATCH_WINDOW):
+                 mode: Mode = Mode.BATCH_WINDOW):
         self.index = 0
 
-        if strategy == RateStrategy.BATCH_WINDOW:
+        if mode == Mode.BATCH_WINDOW:
             self.strategy = BatchWindow(
                 max_requests_per_window=max_requests_per_window,
                 window_in_seconds=window_in_seconds
             )
 
-        if strategy == RateStrategy.LEAKY_BUCKET:
+        if mode == Mode.LEAKY_BUCKET:
             self.strategy = LeakyBucket(
                 window_in_seconds=window_in_seconds
             )

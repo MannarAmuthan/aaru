@@ -1,7 +1,7 @@
-from alavu import Alavu
+from aaru import Aaru
 
 if __name__ == "__main__":
-    alavu = Alavu(max_requests_per_window=100, window_in_seconds=10)
+    aaru = Aaru(max_requests_per_window=100, window_in_seconds=10)
 
 
 

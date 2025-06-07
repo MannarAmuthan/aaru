@@ -1,7 +1,7 @@
 import requests
 from requests import ConnectTimeout
 
-from alavu import Alavu
+from aaru import Aaru
 from strategies.batch_window import CallBackRequest
 
 
@@ -13,12 +13,12 @@ def fetch_from_site():
         return None
 
 
-alavu = Alavu(max_requests_per_window=10,
-              window_in_seconds=2)
-alavu.load([CallBackRequest(callback=fetch_from_site, args=[]) for _ in range(0, 50)])
-alavu.start()
+aaru = Aaru(max_requests_per_window=10,
+            window_in_seconds=2)
+aaru.load([CallBackRequest(callback=fetch_from_site, args=[]) for _ in range(0, 50)])
+aaru.start()
 
-results = alavu.get_result()
+results = aaru.get_result()
 
 count = 0
 

@@ -1,7 +1,7 @@
 
-### Alavu
+### Aaru
 
-Alavu is a flexible, client-side rate limiter and concurrency manager for Python applications. 
+Aaru is a flexible, client-side rate limiter and concurrency manager for Python applications. 
 It allows you to manage the rate at which tasks are executed in parallel, adapting to dynamic workloads and system health metrics.
 
 The library currently supports multiple strategies:
@@ -27,8 +27,9 @@ inside `examples`
 import requests
 from requests import ConnectTimeout
 
-from alavu import Alavu
+from aaru import Aaru
 from strategies.batch_window import CallBackRequest
+
 
 def fetch_from_site():
     try:
@@ -37,12 +38,13 @@ def fetch_from_site():
     except ConnectTimeout:
         return None
 
-alavu = Alavu(max_requests_per_window=10,
-              window_in_seconds=2)
-alavu.load([CallBackRequest(callback=fetch_from_site, args=[]) for _ in range(0, 50)])
-alavu.start()
 
-results = alavu.get_result()
+aaru = Aaru(max_requests_per_window=10,
+             window_in_seconds=2)
+aaru.load([CallBackRequest(callback=fetch_from_site, args=[]) for _ in range(0, 50)])
+aaru.start()
+
+results = aaru.get_result()
 
 count = 0
 
