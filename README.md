@@ -1,7 +1,7 @@
 
 ### Aaru
 
-Aaru is a flexible, client-side rate limiter and concurrency manager for Python applications. 
+Aaru(Āṟu - "stream" , "flow" ) is a flexible, client-side rate limiter and concurrency manager for Python applications. 
 It allows you to manage the rate at which tasks are executed in parallel, adapting to dynamic workloads and system health metrics.
 
 The library currently supports multiple strategies:
