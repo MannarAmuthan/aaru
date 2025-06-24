@@ -7,7 +7,9 @@ It allows you to manage the rate at which tasks are executed in parallel, adapti
 The library currently supports multiple strategies:
 
 Batch Window — Executes a fixed batch of tasks per time window, ensuring rate limiting at batch granularity.
+
 Leaky Bucket — Smoothens task execution by leaking tasks at a steady rate, avoiding sudden bursts.
+
 PID-Based Adaptive Control (coming soon) — Adjusts concurrency dynamically based on process feedback like failure rate, CPU usage, or latency, ensuring smooth performance even under varying load conditions.
 
 #### Example Use Cases:
